@@ -17,12 +17,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import Utility.Utility;
+import githubAPI.githubApi;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GithubTestCases {
-
+	githubApi obj;
 	loginpage objlogin;
 	Repositorypage objrepo;
 	public static String cloneurl;
@@ -31,7 +32,7 @@ public class GithubTestCases {
 	FirefoxProfile ffProfile = new FirefoxProfile();
 	public static WebDriver driver = null;
 	cloningpage objclone;
-    checkcommits objcommit ;
+	checkcommits objcommit;
 	/* ............................... */
 
 	@BeforeTest
@@ -41,7 +42,7 @@ public class GithubTestCases {
 		driver.get("https://github.com/");
 	}
 
-	 @Test(priority=0)
+	// @Test(priority=0)
 	public void loginActivityCase() {
 		objlogin = new loginpage(driver);
 		objlogin.reachsignin();
@@ -58,24 +59,19 @@ public class GithubTestCases {
 		objlogin.loginactivty();
 		objrepo = new Repositorypage(driver);
 		objrepo.CreateRepoActivity();
-		Scanner input1 = new Scanner(System.in);
-		String in = input1.nextLine();
-		objrepo.NameRepoctivty(in);
-		Scanner input2 = new Scanner(System.in);
-		String in2 = input2.nextLine();
-		input1.close();
-		input2.close();
-		objrepo.RepoDescriptionActivity(in2);
+		objrepo.NameRepoctivty(Utility.getYamlValues("repositoryname"));
+		objrepo.RepoDescriptionActivity(Utility.getYamlValues("description"));
 		objrepo.Autocloning();
 		objrepo.CreateRepoActivity2();
 		String expectedtitle = driver.getCurrentUrl();
 		System.out.println(expectedtitle);
-		cloneurl = "https://github.com/aakriti-srivastava/" + in;
-		Assert.assertEquals("https://github.com/aakriti-srivastava/" + in, expectedtitle);
+		cloneurl = "https://github.com/aakriti-srivastava/" + Utility.getYamlValues("repositoryname");
+		Assert.assertEquals("https://github.com/aakriti-srivastava/" + Utility.getYamlValues("repositoryname"),
+				expectedtitle);
 
 	}
 
-	@Test(priority = 2)
+	//@Test(priority = 2)
 	public void Cloning() throws IOException {
 
 		objlogin = new loginpage(driver);
@@ -83,20 +79,15 @@ public class GithubTestCases {
 		objlogin.loginactivty();
 		objrepo = new Repositorypage(driver);
 		objrepo.CreateRepoActivity();
-		Scanner input1 = new Scanner(System.in);
-		String in = input1.nextLine();
-		objrepo.NameRepoctivty(in);
-		Scanner input2 = new Scanner(System.in);
-		String in2 = input2.nextLine();
-		input1.close();
-		input2.close();
-		objrepo.RepoDescriptionActivity(in2);
+		objrepo.NameRepoctivty(Utility.getYamlValues("repositoryname"));
+		objrepo.RepoDescriptionActivity(Utility.getYamlValues("description"));
 		objrepo.Autocloning();
 		objrepo.CreateRepoActivity2();
 		String expectedtitle = driver.getCurrentUrl();
 		System.out.println(expectedtitle);
-		cloneurl = "https://github.com/aakriti-srivastava/" + in + ".git";
-		Assert.assertEquals("https://github.com/aakriti-srivastava/" + in, expectedtitle);
+		cloneurl = "https://github.com/aakriti-srivastava/" + Utility.getYamlValues("repositoryname") + ".git";
+		Assert.assertEquals("https://github.com/aakriti-srivastava/" + Utility.getYamlValues("repositoryname"),
+				expectedtitle);
 		driver.get(cloneurl);
 		objclone = new cloningpage(driver);
 		objclone.fetchcloneurl();
@@ -104,40 +95,49 @@ public class GithubTestCases {
 	}
 
 	
-@Test(dependsOnMethods = "CreateRepo")
+@Test(priority=4)
 public void testshell3() {
-	
-	System.out.println((new java.util.Date()).getTime());
-	List<String> commands = new ArrayList<String>();
-	commands.add("mkdir "+ Utility.getYamlValues("repositoryname"));
-	commands.add("cd "+Utility.getYamlValues("repositoryname"));
-    commands.add("touch "+Utility.getYamlValues("filename"));
-    commands.add("git init");	
-    commands.add("git remote add origin 'https://"+Utility.getYamlValues("username")+":"+Utility.getYamlValues("password")+"@github.com/"+Utility.getYamlValues("username")+"/"+Utility.getYamlValues("repositoryname")+".git'");
-    commands.add("git add .");
-    commands.add("git commit -m \""+(new java.util.Date()).getTime()+"\"");
-    commands.add("git pull origin master");
-    commands.add("git push origin master");
-    
-	Utility.writeToFile("main/gitcommands.sh",commands);
-	shellcommand gitCommands = new shellcommand();
-	String[] str_arr = {"sh","main/gitcommands.sh"};
-	System.out.println(gitCommands.execCommand(str_arr));
-	
-	
+		objlogin = new loginpage(driver);
+		objlogin.reachsignin();
+		objlogin.loginactivty();
+		driver.get("https://github.com/aakriti-srivastava/" + Utility.getYamlValues("repositoryname"));
+		System.out.println((new java.util.Date()).getTime());
+		List<String> commands = new ArrayList<String>();
+		commands.add("mkdir " + Utility.getYamlValues("repositoryname"));
+		commands.add("cd " + Utility.getYamlValues("repositoryname"));
+		commands.add("touch " + Utility.getYamlValues("filename"));
+		commands.add("git init");
+		commands.add("git remote add origin 'https://" + Utility.getYamlValues("username") + ":"
+				+ Utility.getYamlValues("password") + "@github.com/" + Utility.getYamlValues("username") + "/"
+				+ Utility.getYamlValues("repositoryname") + ".git'");
+		commands.add("git add .");
+		commands.add("git commit -m \"" + (new java.util.Date()).getTime() + "\"");
+		commands.add("git pull origin master");
+		commands.add("git push origin master");
+		Utility.writeToFile("main/gitcommands.sh", commands);
+		shellcommand gitCommands = new shellcommand();
+		String[] str_arr = { "sh", "main/gitcommands.sh" };
+		System.out.println(gitCommands.execCommand(str_arr));
+		driver.get("https://github.com/aakriti-srivastava/" + Utility.getYamlValues("repositoryname"));
+        
 }
 
 
 
-@Test(priority =5 )
-public void testcommits() {
-	objcommit = new checkcommits(driver);
-	driver.get("https://github.com/aakriti-srivastava/ziyo1/commits/master");
-	objcommit.fetchcommitid();
-	
-	
-	
-	
+ //@Test(priority =5 )
+public void testcommit() {
+		objcommit = new checkcommits(driver);
+		driver.get("https://github.com/aakriti-srivastava/ziyo1/commits/master");
+		objcommit.fetchcommitid();
+ }
+ 
+
+ @Test(priority =6 )
+ public void testApi() {
+
+		githubApi obj = new githubApi();
+		obj.createRepoUsingApi();
+		obj.getmyself();
 	
 }
 

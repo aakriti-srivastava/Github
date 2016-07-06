@@ -26,6 +26,15 @@
 			<scope>test</scope>
 		</dependency>
 
+         <dependency>
+           <groupId>org.kohsuke</groupId>
+           <artifactId>github-api</artifactId>
+           <version>1.76</version>
+       </dependency>
+
+
+
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>

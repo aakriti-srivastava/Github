@@ -2,19 +2,19 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="10794" started-at="2016-07-05T12:59:24Z" finished-at="2016-07-05T12:59:35Z">
+  <suite name="Default suite" duration-ms="22433" started-at="2016-07-06T09:22:55Z" finished-at="2016-07-06T09:23:18Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="10794" started-at="2016-07-05T12:59:24Z" finished-at="2016-07-05T12:59:35Z">
+    <test name="Default test" duration-ms="22433" started-at="2016-07-06T09:22:55Z" finished-at="2016-07-06T09:23:18Z">
       <class name="GithubTestCases">
-        <test-method status="PASS" signature="setup()[pri:0, instance:GithubTestCases@1500955a]" name="setup" is-config="true" duration-ms="9430" started-at="2016-07-05T18:29:24Z" finished-at="2016-07-05T18:29:33Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:GithubTestCases@5f3a4b84]" name="setup" is-config="true" duration-ms="7778" started-at="2016-07-06T14:52:55Z" finished-at="2016-07-06T14:53:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testcommits()[pri:5, instance:GithubTestCases@1500955a]" name="testcommits" duration-ms="1356" started-at="2016-07-05T18:29:33Z" finished-at="2016-07-05T18:29:35Z">
+        <test-method status="PASS" signature="testshell3()[pri:4, instance:GithubTestCases@5f3a4b84]" name="testshell3" duration-ms="14648" started-at="2016-07-06T14:53:03Z" finished-at="2016-07-06T14:53:18Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testcommits -->
+        </test-method> <!-- testshell3 -->
       </class> <!-- GithubTestCases -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

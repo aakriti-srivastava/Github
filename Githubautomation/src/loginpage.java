@@ -1,10 +1,11 @@
 /* Automation of GITHUB */
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import Utility.Utility;
 
 public class loginpage {
 
@@ -40,8 +41,8 @@ public class loginpage {
        
       public void loginactivty()
        {
-    	   username.sendKeys("aakriti-srivastava");
-    	   password.sendKeys("aakriti123");   
+    	   username.sendKeys(Utility.getYamlValues("username"));
+    	   password.sendKeys(Utility.getYamlValues("password"));   
     	   login.click();
        }
   
